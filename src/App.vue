@@ -1,15 +1,15 @@
 <template>
 	<div>
-		<hello-component name="World" />
+		<Countdown :time="15000" />
 	</div>
 </template>
 
 <script>
-import HelloComponent from './components/HelloComponent.vue'
+import Countdown from './components/Countdown.vue'
 
 export default {
 	components: {
-		HelloComponent
+		Countdown
 	}
 }
 </script>
