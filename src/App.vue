@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<Countdown :time="60000" />
+		<Countdown :time="60 * 60 * 1000" />
 	</div>
 </template>
 
