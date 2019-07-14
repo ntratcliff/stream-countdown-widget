@@ -2,20 +2,20 @@
 	<div class="countdown">
 		<span
 			v-if="!hideEmptyUnits || totalHoursInt >= 1"
-			class="time-left hours"
+			class="hours"
 		>
-			{{ currentHours }}h&nbsp;
+			<span class="time">{{ currentHours }}</span><span class="text">{{ hoursText }} </span>
 		</span>
 		<span
 			v-if="!hideEmptyUnits || totalMinutesInt >= 1"
-			class="time-left minutes"
+			class="minutes"
 		>
-			{{ currentMinutes }}m&nbsp;
+			<span class="time">{{ currentMinutes }}</span><span class="text">{{ minutesText }} </span>
 		</span>
 		<span
-			class="time-left seconds"
+			class="seconds"
 		>
-			{{ currentSeconds }}s&nbsp;
+			<span class="time">{{ currentSeconds }}</span><span class="text">{{ secondsText }} </span>
 		</span>
 	</div>
 </template>
@@ -52,6 +52,21 @@ export default {
 			type: Number,
 			required: false,
 			default: 0
+		},
+		hoursText: {
+			type: String,
+			required: false,
+			default: 'h '
+		},
+		minutesText: {
+			type: String,
+			required: false,
+			default: 'm '
+		},
+		secondsText: {
+			type: String,
+			required: false,
+			default: 's '
 		},
 		// Hides units that don't have a value >=1 (i.e. no hours disply for 59 minutes)
 		hideEmptyUnits: {

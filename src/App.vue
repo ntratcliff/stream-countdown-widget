@@ -1,8 +1,8 @@
 <template>
 	<div>
 		<Countdown
-			:hours="0"
-			:minutes="0"
+			:hours="1"
+			:minutes="15"
 			:seconds="5"
 			:hide-empty-units="true"
 		/>
