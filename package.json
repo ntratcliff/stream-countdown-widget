@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint src --ext .js,.vue",
     "lint:fix": "eslint src --ext .js,.vue --fix",
-    "dev": "webpack-dev-server --config build/webpack.config.dev.js"
+		"dev": "webpack-dev-server --config build/webpack.config.dev.js",
+		"release": "webpack --config build/webpack.config.release.js"
   },
   "author": "",
   "license": "ISC",
