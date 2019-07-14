@@ -1,8 +1,22 @@
 <template>
 	<div class="countdown">
-		<span class="time-left hours">{{ currentHours }}h </span>
-		<span class="time-left minutes">{{ currentMinutes }}m </span>
-		<span class="time-left seconds">{{ currentSeconds }}s</span>
+		<span
+			v-if="!hideEmptyUnits || totalHoursInt >= 1"
+			class="time-left hours"
+		>
+			{{ currentHours }}h&nbsp;
+		</span>
+		<span
+			v-if="!hideEmptyUnits || totalMinutesInt >= 1"
+			class="time-left minutes"
+		>
+			{{ currentMinutes }}m&nbsp;
+		</span>
+		<span
+			class="time-left seconds"
+		>
+			{{ currentSeconds }}s&nbsp;
+		</span>
 	</div>
 </template>
 
@@ -38,6 +52,12 @@ export default {
 			type: Number,
 			required: false,
 			default: 0
+		},
+		// Hides units that don't have a value >=1 (i.e. no hours disply for 59 minutes)
+		hideEmptyUnits: {
+			type: Boolean,
+			required: false,
+			default: false
 		}
 	},
 	data: function () {

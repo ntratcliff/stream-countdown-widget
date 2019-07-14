@@ -1,6 +1,11 @@
 <template>
 	<div>
-		<Countdown :hours="1" :minutes="15" :seconds="30" />
+		<Countdown
+			:hours="0"
+			:minutes="0"
+			:seconds="5"
+			:hide-empty-units="true"
+		/>
 	</div>
 </template>
 
