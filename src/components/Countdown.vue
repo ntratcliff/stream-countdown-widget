@@ -1,7 +1,7 @@
 <template>
 	<div class="countdown">
 		<span
-			v-if="!hideEmptyUnits || totalHoursInt >= 1"
+			v-if="displayHours && (!hideEmptyUnits || totalHoursInt >= 1)"
 			class="hours"
 		>
 			<span class="time">{{ currentHours }}</span><span class="text">{{ hoursText }} </span>
@@ -13,6 +13,7 @@
 			<span class="time">{{ currentMinutes }}</span><span class="text">{{ minutesText }} </span>
 		</span>
 		<span
+			v-if="displaySeconds"
 			class="seconds"
 		>
 			<span class="time">{{ currentSeconds }}</span><span class="text">{{ secondsText }} </span>
@@ -73,6 +74,17 @@ export default {
 			type: Boolean,
 			required: false,
 			default: false
+		},
+		displayHours: {
+			type: Boolean,
+			required: false,
+			default: true
+		},
+		// TODO: display minutes
+		displaySeconds: {
+			type: Boolean,
+			required: false,
+			default: true
 		}
 	},
 	data: function () {
@@ -133,7 +145,8 @@ export default {
 
 		// The number of minutes, factoring in hours
 		currentMinutes () {
-			return Math.max(this.totalMinutesInt - HR_TO_MIN * this.totalHoursInt, 0)
+			var hours = this.displayHours ? this.totalHoursInt : 0
+			return Math.max(this.totalMinutesInt - HR_TO_MIN * hours, 0)
 		},
 
 		// The number of hours remaining
