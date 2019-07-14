@@ -4,21 +4,34 @@ body, html {
 	padding: 0;
 	margin: 0;
 	background-color: rgba(0,0,0,0);
+	font-size: 82px;
+}
+
+body {
 	height: 100vh;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-}
 
-.countdown {
 	font-family: 'Nunito', sans-serif;
-	font-size: 82px;
 	font-weight: bold;
 	color: #FFE001;
 	filter: drop-shadow(0.0625em 0.0625em 0 #FF6076);
+}
+
+.root, .countdown, .display {
 	display: flex;
 }
 
-.display {
-	display: flex;
+.root {
+	flex-direction: column;
+	justify-content: center;
+}
+
+.countdown {
+	justify-content: center;
+}
+
+.minutes-text {
+	line-height: 0.85em;
 }

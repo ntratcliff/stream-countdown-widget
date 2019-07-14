@@ -1,14 +1,14 @@
 <template>
-	<div>
+	<div class="root">
 		<Countdown
-			:hours="1"
+			:hours="0"
 			:minutes="15"
-			:seconds="5"
-			:hide-empty-units="true"
+			:seconds="0"
 			:display-hours="false"
 			minutes-text=":"
 			seconds-text=""
 		/>
+		<span class="minutes-text">minutes</span>
 	</div>
 </template>
 
