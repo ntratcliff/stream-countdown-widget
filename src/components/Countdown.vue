@@ -16,7 +16,7 @@
 			v-if="displaySeconds"
 			class="seconds"
 		>
-			<span class="time">{{ currentSeconds }}</span><span class="text">{{ secondsText }} </span>
+			<span class="time">{{ currentSeconds.toString().padStart(padSeconds ? 2 : 0, '0') }}</span><span class="text">{{ secondsText }} </span>
 		</span>
 	</div>
 </template>
@@ -82,6 +82,13 @@ export default {
 		},
 		// TODO: display minutes
 		displaySeconds: {
+			type: Boolean,
+			required: false,
+			default: true
+		},
+		// TODO: pad minutes and hours
+		// whether or not to add padding 0s to the second counter
+		padSeconds: {
 			type: Boolean,
 			required: false,
 			default: true

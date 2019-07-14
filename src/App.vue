@@ -6,6 +6,8 @@
 			:seconds="5"
 			:hide-empty-units="true"
 			:display-hours="false"
+			minutes-text=":"
+			seconds-text=""
 		/>
 	</div>
 </template>
