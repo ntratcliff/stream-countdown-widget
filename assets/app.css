@@ -1,1 +1,19 @@
+@import url("https://fonts.googleapis.com/css?family=Nunito&display=swap");
 
+body, html {
+	padding: 0;
+	margin: 0;
+	background-color: rgba(0,0,0,0);
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.countdown {
+	font-family: 'Nunito', sans-serif;
+	font-size: 82px;
+	font-weight: bold;
+	color: #FFE001;
+	filter: drop-shadow(0.0625em 0.0625em 0 #FF6076);
+}
