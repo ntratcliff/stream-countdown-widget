@@ -2,21 +2,24 @@
 	<div class="countdown">
 		<span
 			v-if="displayHours && (!hideEmptyUnits || totalHoursInt >= 1)"
-			class="hours"
+			class="display hours"
 		>
-			<span class="time">{{ currentHours }}</span><span class="text">{{ hoursText }} </span>
+			<span class="time">{{ currentHours }}</span>
+			<span class="text" v-if="hoursText !== ''">{{ hoursText }}</span>
 		</span>
 		<span
 			v-if="!hideEmptyUnits || totalMinutesInt >= 1"
-			class="minutes"
+			class="display minutes"
 		>
-			<span class="time">{{ currentMinutes }}</span><span class="text">{{ minutesText }} </span>
+			<span class="time">{{ currentMinutes }}</span>
+			<span class="text" v-if="minutesText !== ''">{{ minutesText }}</span>
 		</span>
 		<span
 			v-if="displaySeconds"
-			class="seconds"
+			class="display seconds"
 		>
-			<span class="time">{{ currentSeconds.toString().padStart(padSeconds ? 2 : 0, '0') }}</span><span class="text">{{ secondsText }} </span>
+			<span class="time">{{ currentSeconds.toString().padStart(padSeconds ? 2 : 0, '0') }}</span>
+			<span class="text" v-if="secondsText !== ''">{{ secondsText }}</span>
 		</span>
 	</div>
 </template>
