@@ -1,8 +1,8 @@
 <template>
 	<div class="countdown">
-		<span class="time-left hours">{{ hours }}h </span>
-		<span class="time-left minutes">{{ minutes }}m </span>
-		<span class="time-left seconds">{{ seconds }}s</span>
+		<span class="time-left hours">{{ currentHours }}h </span>
+		<span class="time-left minutes">{{ currentMinutes }}m </span>
+		<span class="time-left seconds">{{ currentSeconds }}s</span>
 	</div>
 </template>
 
@@ -10,30 +10,50 @@
 const INTERVAL = 1000 // 1 second
 const MS_TO_SEC = 1 / 1000 // converts milliseconds to seconds
 const SEC_TO_MIN = 1 / 60 // converts seconds to minutes
-const MIN_TO_SEC = 1 / SEC_TO_MIN // converts minutes to seconds
 const MIN_TO_HR = 1 / 60 // converts minutes to hours
+
 const MS_TO_MIN = MS_TO_SEC * SEC_TO_MIN // converts ms to mins
 const MS_TO_HR = MS_TO_MIN * MIN_TO_HR // converts ms to hours
+const SEC_TO_MS = 1 / MS_TO_SEC // converts sec to ms
+const MIN_TO_MS = 1 / MS_TO_MIN // converts min to ms
+const MIN_TO_SEC = 1 / SEC_TO_MIN // converts minutes to seconds
 const HR_TO_MIN = 1 / MIN_TO_HR // converts hr to mins
+const HR_TO_MS = 1 / MS_TO_HR // converts hr to ms
 
 export default {
 	props: {
-		// Time in milliseconds
-		time: {
+		// Time in hours
+		hours: {
 			type: Number,
-			required: true
+			required: false,
+			default: 0
+		},
+		minutes: {
+			type: Number,
+			required: false,
+			default: 0
+		},
+		// Time in seconds
+		seconds: {
+			type: Number,
+			required: false,
+			default: 0
 		}
 	},
 	data: function () {
 		return {
 			intervalHandle: null,
-			totalMilliseconds: 0
+			time: 0
 		}
 	},
 	computed: {
 		// Whether or not the timer is currently counting down
 		counting () {
 			return this.intervalHandle != null
+		},
+
+		totalMilliseconds () {
+			return this.time
 		},
 
 		// The total number of seconds on the clock
@@ -67,34 +87,34 @@ export default {
 		},
 
 		// The number of milliseconds, fatctoring in seconds, minutes, and hours
-		milliseconds () {
+		currentMilliseconds () {
 			return this.totalMillisecondsInt - MS_TO_SEC * this.totalSecondsInt
 		},
 
 		// The number of seconds, factoring in minutes and hours
-		seconds () {
-			console.log(this.totalMinutesInt)
+		currentSeconds () {
 			return this.totalSecondsInt - MIN_TO_SEC * this.totalMinutesInt
 		},
 
 		// The number of minutes, factoring in hours
-		minutes () {
-			return this.totalMinutesInt - HR_TO_MIN * this.totalHoursInt
+		currentMinutes () {
+			return Math.max(this.totalMinutesInt - HR_TO_MIN * this.totalHoursInt, 0)
 		},
 
 		// The number of hours remaining
-		hours () {
+		currentHours () {
 			return Math.floor(this.totalMilliseconds * MS_TO_HR)
 		}
 	},
-	watch: {
-		time (newValue, oldValue) {
-			this.set(newValue)
-			this.start(INTERVAL)
-		}
+	created () {
+		// compute time from h m s
+		this.time += this.hours * HR_TO_MS
+		this.time += this.minutes * MIN_TO_MS
+		this.time += this.seconds * SEC_TO_MS
+
+		this.set(this.time)
 	},
 	mounted () {
-		this.set(this.time)
 		this.start(INTERVAL)
 	},
 	methods: {
@@ -117,14 +137,14 @@ export default {
 		},
 		// Sets the timer value
 		set (milliseconds) {
-			this.totalMilliseconds = milliseconds
+			this.time = milliseconds
 			console.log(milliseconds)
 		},
 		// Decrements the number of seconds left by the interval
 		update (interval) {
-			this.totalMilliseconds = Math.max(this.totalMilliseconds - interval, 0)
+			this.time = Math.max(this.totalMilliseconds - interval, 0)
 
-			if (this.totalMilliseconds === 0) {
+			if (this.time === 0) {
 				this.stop()
 			}
 		}
